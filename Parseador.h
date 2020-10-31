@@ -23,6 +23,7 @@ public:
 	bool esNodoVacio();
 	bool esInstruccion();
 	bool esRet();
+	bool esJmpIncondicional();
 	std::list<std::string> obtenerEtiquetaJmp();
 	std::string obtenerEtiqueta();
 	std::string obtenerInstruccion();

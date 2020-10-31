@@ -1,4 +1,3 @@
-
 #include "Parseador.h"
 
 void Parseador::agregar_linea(std::string linea){
@@ -44,14 +43,13 @@ void Parseador::buscar_etiquetas_jmp(char delimitador, std::string linea){
 void Parseador::parsear_instrucciones(std::string linea){
 	linea = trim(linea);
 	size_t pos = 0;
-	int contador = 0;
 	std::string segment;
 
 	if(linea.at(0) != 'j'){
 		this -> instrucciones = linea;
 		return;
 	}
-	if(pos = linea.find(',') != std::string::npos){ 
+	if((pos = linea.find(',')) != std::string::npos){ 
 		buscar_etiquetas_jmp(',', linea);
 	}else{
 		buscar_etiquetas_jmp(' ', linea);
@@ -100,6 +98,11 @@ bool Parseador::esRet(){
 
 bool Parseador::tieneEtiqueta(){
 	return this->tiene_etiqueta;
+}
+
+bool Parseador::esJmpIncondicional(){
+	return ((this->instrucciones.find("jmp ") != std::string::npos) 
+	|| (this->instrucciones.find("ja ") != std::string::npos));
 }
 
 std::string Parseador::obtenerEtiqueta(){

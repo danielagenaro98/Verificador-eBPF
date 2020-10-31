@@ -1,44 +1,34 @@
-#include <iostream>
-#include <fstream>
 #include <string>
-#include "Grafo.h"
-#include "Parseador.h"
-using namespace std;
+#include <thread>
+#include "lectorArchivos.h"
+#include "manejadorArchivos.h"
+#include "Impresor.h"
 
-//En manejador de archivos agregar validaciones de argv.
 
-int main(int argc, char *argv[]) {
-  string line;
-  ifstream myfile (argv[2]);
-  Grafo g;
+int main(int argc, char *argv[]){
+  
+  if(argc < 3){
+    return -1;
+  }
+  //argv[1] = numero hilos
+  const char* archivo;
+  ManejadorArchivos manejador;
+  Impresor impresor;
+  //ThreadVerificador thread;
 
-  if (myfile.is_open()){
-    while (1){
-      if(!getline(myfile, line)){
-        g.ultimoNodo();
-        break;
-      }
-    	Parseador* nodo = new Parseador();
-    	nodo->agregar_linea(line);
-    	g.agregarNodo(nodo);
-    }
-    myfile.close();
-  } else{
-  	std::cout << "Unable to open file";
-  } 
-
-  g.imprimirGrafo();
-  g.DFS();
-
-  if(g.tieneCliclos()){
-    std::cout << argv[2] << " FAIL: cycle detected" << '\n';
-  }else if(g.tieneInstruccionesSinUsar()){
-    std::cout << argv[2] << " FAIL: unused instructions detected"<< '\n';
-  }else{
-    std::cout << argv[2] << " GOOD"<< '\n';
+  for(int i=2; i<argc; i++){
+    manejador.recibirArchivos(argv[i]);
   }
 
-  g.destruirGrafo();
+  //thread.run();
 
-  return 0;
+  //esto es lo que tiene que hacer el thread;
+  while((archivo = manejador.getArchivo())){
+    LectorArchivos lector;
+    lector.leer_codigo(archivo);
+    std::string resultado = lector.verificar();
+    impresor.almacenarResultado(resultado);
+  }
+
+  impresor.imprimirResultados();
 }

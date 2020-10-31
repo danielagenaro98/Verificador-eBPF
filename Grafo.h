@@ -3,10 +3,9 @@
 #include<list>	
 #include<bits/stdc++.h>
 #include "Parseador.h"
-using namespace std;
  
 class Grafo{
-    list<list<Parseador*>> *adyacentes; //puntero a lista de adyacencias. 
+    std::list<std::list<Parseador*>> *adyacentes; //puntero a lista de adyacencias. 
     bool esCiclico;
     bool instruccionSinUsar;
     void agregarNodoAdyacente(Parseador* nodo);
@@ -24,11 +23,12 @@ public:
     Grafo(); // Constructor 
     void agregarNodo(Parseador *nodo); // to agrega un nodo al grafo to graph 
     void DFS();
-    void imprimirGrafo();
+    void imprimirGrafo(); 
     void destruirGrafo();
     void ultimoNodo();
     bool tieneCliclos();
     bool tieneInstruccionesSinUsar();
+    ~Grafo();
 };
 
 #endif
