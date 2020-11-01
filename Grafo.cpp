@@ -9,12 +9,12 @@ Grafo::Grafo(){
 void Grafo::agregarNodoConEtiqueta(Parseador *nodo){
     std::list<std::list<Parseador*>>::iterator it;
 
-    for(it = this->adyacentes->begin(); 
+    for (it = this->adyacentes->begin(); 
         it!= this->adyacentes->end(); it++){
         Parseador *nodo_aux = (*it).front();
         std::string etiqueta_nodo = nodo->obtenerEtiqueta();
         std::string instruccion_nodo_aux = nodo_aux->obtenerInstruccion();
-        if((instruccion_nodo_aux.find(etiqueta_nodo)) != std::string::npos){
+        if ((instruccion_nodo_aux.find(etiqueta_nodo)) != std::string::npos){
             (*it).push_back(nodo);
         }
     }   
@@ -23,10 +23,11 @@ void Grafo::agregarNodoConEtiqueta(Parseador *nodo){
 Parseador* Grafo::buscarNodoConEtiqueta(std::string etiqueta){
     std::list<std::list<Parseador*>>::iterator it;
 
-    for(it = this->adyacentes->begin(); it!= this->adyacentes->end(); it++){
+    for (it = this->adyacentes->begin(); 
+        it!= this->adyacentes->end(); it++){
         Parseador *nodo_aux = (*it).front();
-        if((nodo_aux->tieneEtiqueta()) && 
-        (nodo_aux->obtenerEtiqueta().find(etiqueta)!= std::string::npos)){
+        if ((nodo_aux->tieneEtiqueta()) && 
+        (nodo_aux->obtenerEtiqueta().find(etiqueta) != std::string::npos)){
             return nodo_aux;
         }
     } 
@@ -38,22 +39,14 @@ void Grafo::agregarListaAdy(Parseador *nodo){
     lista_nueva.push_back(nodo);
     this->adyacentes->push_back(lista_nueva);
 }
-    
-void imprimirLista(std::list<std::string> lista){
-    std::list<std::string>::iterator it;
-
-    for(it = lista.begin(); it!= lista.end(); it++){
-        std::cout << (*it) << " ";
-    }
-}
-
 
 int Grafo::obtenerEtiquetasNodo(Parseador *nodo_ant){
     std::list<std::string> etiquetas_jmp = nodo_ant->obtenerEtiquetaJmp();
     std::list<std::string>::iterator it;
-    for(it = etiquetas_jmp.begin(); it!= etiquetas_jmp.end(); it++){
+
+    for (it = etiquetas_jmp.begin(); it!= etiquetas_jmp.end(); it++){
         Parseador* nodo_etiqueta = buscarNodoConEtiqueta((*it));
-        if(nodo_etiqueta != NULL){
+        if (nodo_etiqueta != NULL){
             this->adyacentes->back().push_back(nodo_etiqueta);
         }
     }
@@ -61,13 +54,13 @@ int Grafo::obtenerEtiquetasNodo(Parseador *nodo_ant){
 }
 
 void Grafo::agregarAdyacentesNodo(Parseador *nodo, Parseador *nodo_ant){
-    if(nodo_ant->esInstruccion()){
-        if(!(nodo_ant->esRet())){
+    if (nodo_ant->esInstruccion()){
+        if (!(nodo_ant->esRet())){
             this->adyacentes->back().push_back(nodo);
         }
     }else{
         int cant_etiquetas = obtenerEtiquetasNodo(nodo_ant);
-        if((!nodo_ant->esJmpIncondicional()) && (cant_etiquetas == 1)){ 
+        if ((!nodo_ant->esJmpIncondicional()) && (cant_etiquetas == 1)){ 
             this->adyacentes->back().push_back(nodo);
         }
     }
@@ -75,28 +68,17 @@ void Grafo::agregarAdyacentesNodo(Parseador *nodo, Parseador *nodo_ant){
 
 void Grafo::ultimoNodo(){
     Parseador *nodo_ant = this->adyacentes->back().front();
-    if(nodo_ant->esJmpIncondicional()){
+    if (nodo_ant->esJmpIncondicional()){
         obtenerEtiquetasNodo(nodo_ant);
     }
 }
 
-bool Grafo::instruccionRepetida(Parseador* nodo){
-    std::list<std::list<Parseador*>>::iterator it;
-
-    for(it = this->adyacentes->begin(); it!= this->adyacentes->end(); it++){
-        Parseador *nodo_aux = (*it).front();
-        if((nodo_aux->obtenerInstruccion().compare(nodo->obtenerInstruccion()) == 0)){
-            return true;
-        }
-    } 
-    return false;
-}
-
 void Grafo::agregarNodo(Parseador *nodo){
-    if((nodo->esNodoVacio())){
+    if ((nodo->esNodoVacio())){
+        delete nodo;
         return;
     }
-    if(this->adyacentes->empty()){
+    if (this->adyacentes->empty()){
         agregarListaAdy(nodo);
         return;
     }
@@ -104,7 +86,7 @@ void Grafo::agregarNodo(Parseador *nodo){
     //busco adyacentes para nodo anterior.
     agregarAdyacentesNodo(nodo, nodo_ant);
     //busco adyacentes si tiene etiqueta nodo actual.
-    if(nodo->tieneEtiqueta()){
+    if (nodo->tieneEtiqueta()){
         agregarNodoConEtiqueta(nodo);
     }
     agregarListaAdy(nodo);
@@ -114,13 +96,14 @@ std::list<Parseador*> Grafo::obtenerNodosAdyacentes(Parseador* nodo){
     std::list<Parseador*> ady;
     std::list<std::list<Parseador*>>::iterator it;
 
-    for(it = this->adyacentes->begin(); 
+    for (it = this->adyacentes->begin(); 
         it!= this->adyacentes->end(); it++){
-        if(nodo == (*it).front()){
+
+        if (memcmp(nodo, (*it).front(), sizeof(*nodo)) == 0){
             std::list<Parseador*>::iterator it2;
             int contador = 0;
 
-            for(it2 = (*it).begin(); it2!= (*it).end(); it2++){
+            for (it2 = (*it).begin(); it2!= (*it).end(); it2++){
                 if (contador == 0){
                     contador++;
                     continue;
@@ -139,7 +122,7 @@ bool Grafo::nodoEstaEnLista(Parseador *nodo,
     std::list<Parseador*> lista){
     std::list<Parseador*>::iterator it;
 
-    bool estaEnLista = (std::find(lista.begin(), 
+    bool estaEnLista = (std::find(lista.begin(),
         lista.end(), nodo) != lista.end());
     return estaEnLista;
 }
@@ -149,13 +132,14 @@ void Grafo::detectarCiclos(Parseador *nodo,
     visitados->push_back(nodo);
     stack->push_back(nodo);
 
-    std::list<Parseador*> adyacentes_nodo = obtenerNodosAdyacentes(nodo);
+    std::list<Parseador*>adyacentes_nodo=
+    obtenerNodosAdyacentes(nodo);
     std::list<Parseador*>::iterator it;
 
-    for(it = adyacentes_nodo.begin(); 
+    for (it = adyacentes_nodo.begin(); 
         it!=adyacentes_nodo.end(); it++){
         Parseador *nodo_act = (*it);
-        if((nodoEstaEnLista(nodo_act, *stack))){
+        if ((nodoEstaEnLista(nodo_act, *stack))){
             this->esCiclico = true;
             return;
         }else if (!nodoEstaEnLista(nodo_act,  *visitados)){
@@ -174,25 +158,8 @@ void Grafo::DFS(){
 
     detectarCiclos(nodo_inicial, &visitados, &stack);
 
-    if(visitados.size() < this->adyacentes->size()){
+    if (visitados.size() < this->adyacentes->size()){
         this->instruccionSinUsar = true;
-    }
-}
-
-void Grafo::imprimirGrafo(){
-    std::cout << "El grafo es:" << '\n';
-    std::list<std::list<Parseador*>>::iterator it;
-
-    for(it = this->adyacentes->begin(); 
-        it!= this->adyacentes->end(); it++){
-
-        std::list<Parseador*>::iterator it2;
-
-        for(it2 = (*it).begin(); it2!= (*it).end(); it2++){
-            Parseador *nodo_aux = (*it2);
-            std::cout<< nodo_aux->obtenerInstruccion() << " ";
-        }
-        std::cout << '\n';
     }
 }
 
@@ -206,8 +173,7 @@ bool Grafo::tieneInstruccionesSinUsar(){
 
 void Grafo::destruirGrafo(){
     std::list<std::list<Parseador*>>::iterator it;
-
-    for(it = this->adyacentes->begin(); 
+    for (it = this->adyacentes->begin(); 
         it!= this->adyacentes->end(); it++){
         std::list<Parseador*>::iterator it2;
         int contador = 0;
@@ -220,9 +186,9 @@ void Grafo::destruirGrafo(){
         contador++;
         }
     }
-    delete this->adyacentes;
 }
 
 Grafo::~Grafo(){
     destruirGrafo();
+    delete this->adyacentes;
 }

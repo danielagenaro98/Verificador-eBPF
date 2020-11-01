@@ -14,11 +14,12 @@ void LectorArchivos::leer_codigo(const char* archivo){
     	Parseador* nodo = new Parseador();
     	nodo->agregar_linea(line);
     	g.agregarNodo(nodo);
-    }
-    myfile.close();
-  	}else{
+    } 
+  myfile.close();
+  }else{
   		std::cout << "Unable to open file";
-  	}	 
+  }
+
 }
 
 std::string LectorArchivos::verificar(){

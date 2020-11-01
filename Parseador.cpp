@@ -29,7 +29,6 @@ std::string Parseador::buscar_etiqueta(std::string linea){
 
 void Parseador::buscar_etiquetas_jmp(std::string delimitador, 
 	std::string linea){
-
 	size_t pos = 0;
 	std::string aux = linea;
 	std::string token;

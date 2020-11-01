@@ -1,6 +1,7 @@
 #ifndef IMPRESOR
 #define IMPRESOR
 #include <string>
+#include <list>
 #include "Grafo.h"
 #include "Parseador.h"
 

@@ -1,6 +1,7 @@
 #ifndef GRAFO_H
 #define GRAFO_H
 #include<list>	
+#include<string>
 #include<bits/stdc++.h>
 #include "Parseador.h"
  
@@ -22,10 +23,9 @@ class Grafo{
     bool instruccionRepetida(Parseador* nodo);
     
 public: 
-    Grafo(); // Constructor 
+    Grafo();
     void agregarNodo(Parseador *nodo);
     void DFS();
-    void imprimirGrafo(); 
     void destruirGrafo();
     void ultimoNodo();
     bool tieneCliclos();

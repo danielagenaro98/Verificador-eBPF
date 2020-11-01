@@ -7,7 +7,7 @@
 #include "Threadverificador.h"
 
 int main(int argc, char *argv[]){ 
-  if(argc < 3){
+  if (argc < 3){
     return -1;
   }
   std::vector<ThreadVerificador*> listaThreads;
@@ -16,17 +16,16 @@ int main(int argc, char *argv[]){
   ManejadorArchivos manejador;
   Impresor impresor;
 
-  for(int i=2; i<argc; i++){
+  for (int i=2; i<argc; i++){
     manejador.recibirArchivos(argv[i]);
   }
-  for(int i=0; i<numeroHilos; i++){
-    listaThreads.push_back(new 
-      ThreadVerificador(&manejador, &impresor));
+  for (int i=0; i<numeroHilos; i++){
+    listaThreads.push_back(new ThreadVerificador(&manejador, &impresor));
   }
-  for(int i=0; i<numeroHilos; i++){
+  for (int i=0; i<numeroHilos; i++){
     listaThreads[i]->start();
   }
-  for(int i=0; i<numeroHilos; i++){
+  for (int i=0; i<numeroHilos; i++){
     listaThreads[i]->join();
     delete listaThreads[i];
   }
