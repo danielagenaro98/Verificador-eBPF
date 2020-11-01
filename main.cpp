@@ -1,33 +1,34 @@
 #include <string>
 #include <thread>
+#include <vector>
 #include "lectorArchivos.h"
 #include "manejadorArchivos.h"
 #include "Impresor.h"
+#include "Threadverificador.h"
 
-
-int main(int argc, char *argv[]){
-  
+int main(int argc, char *argv[]){ 
   if(argc < 3){
     return -1;
   }
-  //argv[1] = numero hilos
-  const char* archivo;
+  std::vector<ThreadVerificador*> listaThreads;
+
+  int numeroHilos = std::atoi(argv[1]);
   ManejadorArchivos manejador;
   Impresor impresor;
-  //ThreadVerificador thread;
 
   for(int i=2; i<argc; i++){
     manejador.recibirArchivos(argv[i]);
   }
-
-  //thread.run();
-
-  //esto es lo que tiene que hacer el thread;
-  while((archivo = manejador.getArchivo())){
-    LectorArchivos lector;
-    lector.leer_codigo(archivo);
-    std::string resultado = lector.verificar();
-    impresor.almacenarResultado(resultado);
+  for(int i=0; i<numeroHilos; i++){
+    listaThreads.push_back(new 
+      ThreadVerificador(&manejador, &impresor));
+  }
+  for(int i=0; i<numeroHilos; i++){
+    listaThreads[i]->start();
+  }
+  for(int i=0; i<numeroHilos; i++){
+    listaThreads[i]->join();
+    delete listaThreads[i];
   }
 
   impresor.imprimirResultados();

@@ -9,11 +9,11 @@ Grafo::Grafo(){
 void Grafo::agregarNodoConEtiqueta(Parseador *nodo){
     std::list<std::list<Parseador*>>::iterator it;
 
-    for(it = this->adyacentes->begin(); it!= this->adyacentes->end(); it++){
+    for(it = this->adyacentes->begin(); 
+        it!= this->adyacentes->end(); it++){
         Parseador *nodo_aux = (*it).front();
         std::string etiqueta_nodo = nodo->obtenerEtiqueta();
         std::string instruccion_nodo_aux = nodo_aux->obtenerInstruccion();
-
         if((instruccion_nodo_aux.find(etiqueta_nodo)) != std::string::npos){
             (*it).push_back(nodo);
         }
@@ -25,7 +25,8 @@ Parseador* Grafo::buscarNodoConEtiqueta(std::string etiqueta){
 
     for(it = this->adyacentes->begin(); it!= this->adyacentes->end(); it++){
         Parseador *nodo_aux = (*it).front();
-        if((nodo_aux->tieneEtiqueta()) && (nodo_aux->obtenerEtiqueta().find(etiqueta) != std::string::npos)){
+        if((nodo_aux->tieneEtiqueta()) && 
+        (nodo_aux->obtenerEtiqueta().find(etiqueta)!= std::string::npos)){
             return nodo_aux;
         }
     } 
@@ -37,11 +38,19 @@ void Grafo::agregarListaAdy(Parseador *nodo){
     lista_nueva.push_back(nodo);
     this->adyacentes->push_back(lista_nueva);
 }
+    
+void imprimirLista(std::list<std::string> lista){
+    std::list<std::string>::iterator it;
+
+    for(it = lista.begin(); it!= lista.end(); it++){
+        std::cout << (*it) << " ";
+    }
+}
+
 
 int Grafo::obtenerEtiquetasNodo(Parseador *nodo_ant){
     std::list<std::string> etiquetas_jmp = nodo_ant->obtenerEtiquetaJmp();
     std::list<std::string>::iterator it;
-
     for(it = etiquetas_jmp.begin(); it!= etiquetas_jmp.end(); it++){
         Parseador* nodo_etiqueta = buscarNodoConEtiqueta((*it));
         if(nodo_etiqueta != NULL){
@@ -71,6 +80,18 @@ void Grafo::ultimoNodo(){
     }
 }
 
+bool Grafo::instruccionRepetida(Parseador* nodo){
+    std::list<std::list<Parseador*>>::iterator it;
+
+    for(it = this->adyacentes->begin(); it!= this->adyacentes->end(); it++){
+        Parseador *nodo_aux = (*it).front();
+        if((nodo_aux->obtenerInstruccion().compare(nodo->obtenerInstruccion()) == 0)){
+            return true;
+        }
+    } 
+    return false;
+}
+
 void Grafo::agregarNodo(Parseador *nodo){
     if((nodo->esNodoVacio())){
         return;
@@ -93,10 +114,9 @@ std::list<Parseador*> Grafo::obtenerNodosAdyacentes(Parseador* nodo){
     std::list<Parseador*> ady;
     std::list<std::list<Parseador*>>::iterator it;
 
-    for(it = this->adyacentes->begin(); it!= this->adyacentes->end(); it++){
-        Parseador* aux = (*it).front();
-
-        if(nodo->compararNodos(aux)){
+    for(it = this->adyacentes->begin(); 
+        it!= this->adyacentes->end(); it++){
+        if(nodo == (*it).front()){
             std::list<Parseador*>::iterator it2;
             int contador = 0;
 
@@ -110,20 +130,18 @@ std::list<Parseador*> Grafo::obtenerNodosAdyacentes(Parseador* nodo){
                 contador++;
             }
             return ady;
-        } 
+        }
     }
     return ady;
 }
 
-bool Grafo::nodoEstaEnLista(Parseador *nodo, std::list<Parseador*> lista){
+bool Grafo::nodoEstaEnLista(Parseador *nodo, 
+    std::list<Parseador*> lista){
     std::list<Parseador*>::iterator it;
 
-    for(it = lista.begin(); it!= lista.end(); it++){
-        if((*it)->compararNodos(nodo)){
-            return true;
-        }
-    }
-    return false;
+    bool estaEnLista = (std::find(lista.begin(), 
+        lista.end(), nodo) != lista.end());
+    return estaEnLista;
 }
 
 void Grafo::detectarCiclos(Parseador *nodo, 
@@ -132,12 +150,12 @@ void Grafo::detectarCiclos(Parseador *nodo,
     stack->push_back(nodo);
 
     std::list<Parseador*> adyacentes_nodo = obtenerNodosAdyacentes(nodo);
-
     std::list<Parseador*>::iterator it;
 
-    for(it = adyacentes_nodo.begin(); it!=adyacentes_nodo.end(); it++){
+    for(it = adyacentes_nodo.begin(); 
+        it!=adyacentes_nodo.end(); it++){
         Parseador *nodo_act = (*it);
-        if(nodoEstaEnLista(nodo_act, *stack)){
+        if((nodoEstaEnLista(nodo_act, *stack))){
             this->esCiclico = true;
             return;
         }else if (!nodoEstaEnLista(nodo_act,  *visitados)){
@@ -165,7 +183,8 @@ void Grafo::imprimirGrafo(){
     std::cout << "El grafo es:" << '\n';
     std::list<std::list<Parseador*>>::iterator it;
 
-    for(it = this->adyacentes->begin(); it!= this->adyacentes->end(); it++){
+    for(it = this->adyacentes->begin(); 
+        it!= this->adyacentes->end(); it++){
 
         std::list<Parseador*>::iterator it2;
 
@@ -188,7 +207,8 @@ bool Grafo::tieneInstruccionesSinUsar(){
 void Grafo::destruirGrafo(){
     std::list<std::list<Parseador*>>::iterator it;
 
-    for(it = this->adyacentes->begin(); it!= this->adyacentes->end(); it++){
+    for(it = this->adyacentes->begin(); 
+        it!= this->adyacentes->end(); it++){
         std::list<Parseador*>::iterator it2;
         int contador = 0;
         for(it2 = (*it).begin(); it2!= (*it).end(); it2++){

@@ -27,7 +27,8 @@ std::string Parseador::buscar_etiqueta(std::string linea){
 	return instrucciones;
 }
 
-void Parseador::buscar_etiquetas_jmp(char delimitador, std::string linea){
+void Parseador::buscar_etiquetas_jmp(std::string delimitador, 
+	std::string linea){
 
 	size_t pos = 0;
 	std::string aux = linea;
@@ -36,6 +37,7 @@ void Parseador::buscar_etiquetas_jmp(char delimitador, std::string linea){
 	while ((pos = aux.find(delimitador)) != std::string::npos){
 		token = aux.substr(0, pos);
 		aux.erase(0, pos + 1);
+		aux = trim(aux);
 		this->etiquetas_jmp.push_back(aux);
 	}
 }
@@ -49,10 +51,10 @@ void Parseador::parsear_instrucciones(std::string linea){
 		this -> instrucciones = linea;
 		return;
 	}
-	if((pos = linea.find(',')) != std::string::npos){ 
-		buscar_etiquetas_jmp(',', linea);
+	if((pos = linea.find(",")) != std::string::npos){ 
+		buscar_etiquetas_jmp(",", linea);
 	}else{
-		buscar_etiquetas_jmp(' ', linea);
+		buscar_etiquetas_jmp(" ", linea);
 	}
 	this -> instrucciones = linea;
 }
@@ -67,13 +69,13 @@ std::string Parseador::trim(const std::string str){
 }
 
 bool Parseador::compararNodos(Parseador* nodo){
-
 	if(nodo->obtenerInstruccion().compare(this->instrucciones) == 0){
 		if((nodo->tieneEtiqueta()) && (this->tiene_etiqueta)){
 			if(nodo->obtenerEtiqueta().compare(this->etiqueta) == 0){
 			 	return true;
 			}
-		}else if((!nodo->tieneEtiqueta()) && (!this->tiene_etiqueta)){
+		}else if((!nodo->tieneEtiqueta()) && 
+			(!this->tiene_etiqueta)){
 			return true;
 		}
 	}
@@ -104,6 +106,7 @@ bool Parseador::esJmpIncondicional(){
 	return ((this->instrucciones.find("jmp ") != std::string::npos) 
 	|| (this->instrucciones.find("ja ") != std::string::npos));
 }
+
 
 std::string Parseador::obtenerEtiqueta(){
 	return this->etiqueta;

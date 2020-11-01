@@ -15,6 +15,4 @@ public:
 	std::string verificar();
 };
 
-
 #endif
-

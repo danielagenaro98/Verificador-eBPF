@@ -33,6 +33,5 @@ std::string LectorArchivos::verificar(){
   	}else{
     	resultado = " GOOD";
   }
-
 	return nombre+resultado;
 }

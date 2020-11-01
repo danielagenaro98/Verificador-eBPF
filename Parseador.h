@@ -11,11 +11,13 @@ class Parseador{
 	std::string etiqueta;
 	std::list<std::string> etiquetas_jmp;
 	bool tiene_etiqueta;
+	bool repetida;
 
 	std::string buscar_etiqueta(std::string linea);
 	void parsear_instrucciones(std::string linea);
 	std::string trim(const std::string str);
-	void buscar_etiquetas_jmp(char delimitador, std::string linea);
+	void buscar_etiquetas_jmp(std::string delimitador, 
+		std::string linea);
 public:
 	void agregar_linea(std::string linea);
 	bool tieneEtiqueta();
@@ -30,5 +32,3 @@ public:
 };	
 
 #endif
-
-//veiga@fiuba.ar
