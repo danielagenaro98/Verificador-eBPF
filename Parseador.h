@@ -20,7 +20,6 @@ class Parseador{
 public:
 	void agregar_linea(std::string linea);
 	bool tieneEtiqueta();
-	bool compararNodos(Parseador* nodo);
 	bool esNodoVacio();
 	bool esInstruccion();
 	bool esRet();

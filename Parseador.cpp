@@ -67,20 +67,6 @@ std::string Parseador::trim(const std::string str){
     return str.substr(first, (last - first + 1));
 }
 
-bool Parseador::compararNodos(Parseador* nodo){
-	if(nodo->obtenerInstruccion().compare(this->instrucciones) == 0){
-		if((nodo->tieneEtiqueta()) && (this->tiene_etiqueta)){
-			if(nodo->obtenerEtiqueta().compare(this->etiqueta) == 0){
-			 	return true;
-			}
-		} else if ((!nodo->tieneEtiqueta()) && 
-			(!this->tiene_etiqueta)){
-			return true;
-		}
-	}
-	return false;
-}
-
 std::list<std::string> Parseador::obtenerEtiquetaJmp(){
 	return this->etiquetas_jmp;
 }
