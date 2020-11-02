@@ -28,7 +28,7 @@ Una vez obtenido esto, se procedió a implementar el algoritmo DFS mediante el c
 
 ## Procesamiento en paralelo:
 Una vez obtenido el grafo junto con el correcto funcionamiento del algoritmo DFS se procedió a implementar la ejecución en paralelo mediante la utilización de Threads. Para obtener un correcto funcionamiento del proceso, se tuvo que tener encuenta qué modulos proteger y cuales no. 
-En esta etapa se realizaron 4 módulos los cuales se describen a continuación:
+En esta etapa se realizaron 3 módulos los cuales se describen a continuación:
 
 1) Manejador de Archivos, con el cual se proporcionarán los archivos a verificar con los hilos.
 2) Impresor, con el cual se mostraran todos los resultados por salida estandar.
