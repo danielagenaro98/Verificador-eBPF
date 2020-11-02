@@ -21,7 +21,7 @@ Una vez obtenido esto, se procedió a implementar el algoritmo DFS mediante el c
 
 <p align="center">
  
-<img src="Imagenes/Flujo.jpg" title="Flujo de generación del Grafo" width="400" height="600">
+<img src="Imagenes/Flujo.jpeg" title="Flujo de generación del Grafo" width="400" height="600">
 <div align="center">Cliente</div>
  
 </p>
