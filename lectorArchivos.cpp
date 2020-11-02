@@ -3,11 +3,11 @@
 void LectorArchivos::leer_codigo(const char* archivo){
 	this->nombreArchivo = archivo;
 	std::string line;
-	std::ifstream myfile (archivo);
+	std::ifstream myfile(archivo);
 
 	if (myfile.is_open()){
     while (1){
-      if(!getline(myfile, line)){
+      if (!getline(myfile, line)){
         g.ultimoNodo();
         break;
       }
@@ -19,7 +19,6 @@ void LectorArchivos::leer_codigo(const char* archivo){
   }else{
   		std::cout << "Unable to open file";
   }
-
 }
 
 std::string LectorArchivos::verificar(){
@@ -27,9 +26,9 @@ std::string LectorArchivos::verificar(){
   std::string resultado;
   std::string nombre(this->nombreArchivo);
 
-	if(g.tieneCliclos()){
+	if (g.tieneCliclos()){
     	resultado = " FAIL: cycle detected";
-  	}else if(g.tieneInstruccionesSinUsar()){
+  	} else if (g.tieneInstruccionesSinUsar()){
     	resultado = " FAIL: unused instructions detected";
   	}else{
     	resultado = " GOOD";

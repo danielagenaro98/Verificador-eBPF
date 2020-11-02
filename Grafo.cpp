@@ -98,7 +98,6 @@ std::list<Parseador*> Grafo::obtenerNodosAdyacentes(Parseador* nodo){
 
     for (it = this->adyacentes->begin(); 
         it!= this->adyacentes->end(); it++){
-
         if (memcmp(nodo, (*it).front(), sizeof(*nodo)) == 0){
             std::list<Parseador*>::iterator it2;
             int contador = 0;
@@ -177,8 +176,8 @@ void Grafo::destruirGrafo(){
         it!= this->adyacentes->end(); it++){
         std::list<Parseador*>::iterator it2;
         int contador = 0;
-        for(it2 = (*it).begin(); it2!= (*it).end(); it2++){
-            if(contador == 0){
+        for (it2 = (*it).begin(); it2!= (*it).end(); it2++){
+            if (contador == 0){
                 Parseador *nodo = (*it2);
                 delete nodo;
                 break;

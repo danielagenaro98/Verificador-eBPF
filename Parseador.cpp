@@ -73,7 +73,7 @@ bool Parseador::compararNodos(Parseador* nodo){
 			if(nodo->obtenerEtiqueta().compare(this->etiqueta) == 0){
 			 	return true;
 			}
-		}else if((!nodo->tieneEtiqueta()) && 
+		} else if ((!nodo->tieneEtiqueta()) && 
 			(!this->tiene_etiqueta)){
 			return true;
 		}
