@@ -11,7 +11,6 @@ class Parseador{
 	std::string etiqueta;
 	std::list<std::string> etiquetas_jmp;
 	bool tiene_etiqueta;
-	bool repetida;
 
 	std::string buscar_etiqueta(std::string linea);
 	void parsear_instrucciones(std::string linea);

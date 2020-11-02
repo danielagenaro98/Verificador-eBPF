@@ -20,7 +20,6 @@ class Grafo{
     void agregarAdyacentesNodo(Parseador *nodo, Parseador *nodo_ant);
     Parseador* buscarNodoConEtiqueta(std::string etiqueta);
     int obtenerEtiquetasNodo(Parseador *nodo_ant);
-    bool instruccionRepetida(Parseador* nodo);
     
 public: 
     Grafo();
