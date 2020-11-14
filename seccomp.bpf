@@ -13,3 +13,4 @@
         jeq #35, good
 bad:    ret #0
 good:   ret #0x7fff0000
+

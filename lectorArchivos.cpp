@@ -11,8 +11,8 @@ void LectorArchivos::leer_codigo(const char* archivo){
         g.ultimoNodo();
         break;
       }
-    	Parseador* nodo = new Parseador();
-    	nodo->agregar_linea(line);
+      Parseador parseo;
+      Nodo* nodo = parseo.parsear_linea(line);
     	g.agregarNodo(nodo);
     } 
   myfile.close();

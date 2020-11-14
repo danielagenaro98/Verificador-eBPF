@@ -23,13 +23,13 @@ int main(int argc, char *argv[]){
   if(count < numeroHilos){
     numeroHilos = count;
   }
-  for (int i=0; i<count; i++){
+  for (int i=0; i<numeroHilos; i++){
     listaThreads.push_back(new ThreadVerificador(&manejador, &impresor));
   }
-  for (int i=0; i<count; i++){
+  for (int i=0; i<numeroHilos; i++){
     listaThreads[i]->start();
   }
-  for (int i=0; i<count; i++){
+  for (int i=0; i<numeroHilos; i++){
     listaThreads[i]->join();
     delete listaThreads[i];
   }

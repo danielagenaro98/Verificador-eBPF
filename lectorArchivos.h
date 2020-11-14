@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Grafo.h"
 #include "Parseador.h"
+#include "Nodo.h"
 
 /*
 * Clase LectorArchivos, dado un archivo 

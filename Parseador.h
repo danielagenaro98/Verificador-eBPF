@@ -5,17 +5,15 @@
 #include <vector>
 #include <sstream>
 #include <list>
+#include "Nodo.h"
 
 /*
 * Clase Parseador, a partir de un string parsea
-* su contenido y lo almacena.
+* su contenido y lo genera un Nodo.
 */
 
 class Parseador{
-	std::string instrucciones;
-	std::string etiqueta;
-	std::list<std::string> etiquetas_jmp;
-	bool tiene_etiqueta;
+	Nodo *nodo;
 
 	// Dado un string, obtiene la etiqueta que contenga
 	// y la almacena en etiqueta. Devuelve las instrucciones
@@ -36,30 +34,9 @@ class Parseador{
 	void buscar_etiquetas_jmp(std::string delimitador, 
 		std::string linea);
 public:
-	// Almacena la linea.
-	void agregar_linea(std::string linea);
-	// Devuelde true si tiene_etiqueta es true.
-	// false en caso contrario.
-	bool tieneEtiqueta();
-	// Devuelve true si el nodo se inicializo vacio.
-	// false en caso contrario.
-	bool esNodoVacio();
-	// Devuelve true si no es intruccion jmp
-	// false en caso contrario.
-	bool esInstruccion();
-	// Devuelve true si es intruccion ret
-	// false en caso contrario.
-	bool esRet();
-	// Devuelve true si es jmp incondicional
-	// false en caso contrario.
-	bool esJmpIncondicional();
-	// Devuelve la lista de etiquetas_jmp
-	// almacenada
-	std::list<std::string> obtenerEtiquetaJmp();
-	// Devuelve la etiqueta almacenada
-	std::string obtenerEtiqueta();
-	// Devuelve la instruccion almacenada.
-	std::string obtenerInstruccion();
+	Parseador();
+	// Dada una linea la parsea y devuelve un nodo.
+	Nodo* parsear_linea(std::string linea);
 };	
 
 #endif
