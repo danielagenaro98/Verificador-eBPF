@@ -15,17 +15,21 @@ int main(int argc, char *argv[]){
   int numeroHilos = std::atoi(argv[1]);
   ManejadorArchivos manejador;
   Impresor impresor;
-
+  int count = 0;
   for (int i=2; i<argc; i++){
     manejador.recibirArchivos(argv[i]);
+    count++;
   }
-  for (int i=0; i<numeroHilos; i++){
+  if(count < numeroHilos){
+    numeroHilos = count;
+  }
+  for (int i=0; i<count; i++){
     listaThreads.push_back(new ThreadVerificador(&manejador, &impresor));
   }
-  for (int i=0; i<numeroHilos; i++){
+  for (int i=0; i<count; i++){
     listaThreads[i]->start();
   }
-  for (int i=0; i<numeroHilos; i++){
+  for (int i=0; i<count; i++){
     listaThreads[i]->join();
     delete listaThreads[i];
   }

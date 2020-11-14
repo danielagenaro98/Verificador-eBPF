@@ -1,9 +1,8 @@
 #include "Impresor.h"
 
 void Impresor::almacenarResultado(std::string resultado){
-	mutex.lock();
+	std::lock_guard<std::mutex> lock (this->mutex);
 	this->impresion.push_back(resultado);
-	mutex.unlock();
 }
 
 void Impresor::imprimirResultados(){
