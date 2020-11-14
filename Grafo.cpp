@@ -10,7 +10,7 @@ void Grafo::agregarNodoConEtiqueta(Nodo *nodo){
     std::list<std::list<Nodo*>>::iterator it;
 
     for (it = this->adyacentes->begin(); 
-        it!= this->adyacentes->end(); it++){
+        it!= this->adyacentes->end(); ++it){
         Nodo *nodo_aux = (*it).front();
         std::string etiqueta_nodo = nodo->obtenerEtiqueta();
         std::string instruccion_nodo_aux = nodo_aux->obtenerInstruccion();
@@ -24,7 +24,7 @@ Nodo* Grafo::buscarNodoConEtiqueta(std::string etiqueta){
     std::list<std::list<Nodo*>>::iterator it;
 
     for (it = this->adyacentes->begin(); 
-        it!= this->adyacentes->end(); it++){
+        it!= this->adyacentes->end(); ++it){
         Nodo *nodo_aux = (*it).front();
         if ((nodo_aux->tieneEtiqueta()) && 
         (nodo_aux->obtenerEtiqueta().find(etiqueta) != std::string::npos)){
@@ -44,7 +44,7 @@ int Grafo::obtenerEtiquetasNodo(Nodo *nodo_ant){
     std::list<std::string> etiquetas_jmp = nodo_ant->obtenerEtiquetaJmp();
     std::list<std::string>::iterator it;
 
-    for (it = etiquetas_jmp.begin(); it!= etiquetas_jmp.end(); it++){
+    for (it = etiquetas_jmp.begin(); it!= etiquetas_jmp.end(); ++it){
         Nodo* nodo_etiqueta = buscarNodoConEtiqueta((*it));
         if (nodo_etiqueta != NULL){
             this->adyacentes->back().push_back(nodo_etiqueta);
@@ -97,12 +97,12 @@ std::list<Nodo*> Grafo::obtenerNodosAdyacentes(Nodo* nodo){
     std::list<std::list<Nodo*>>::iterator it;
 
     for (it = this->adyacentes->begin(); 
-        it!= this->adyacentes->end(); it++){
+        it!= this->adyacentes->end(); ++it){
         if (memcmp(nodo, (*it).front(), sizeof(*nodo)) == 0){
             std::list<Nodo*>::iterator it2;
             int contador = 0;
 
-            for (it2 = (*it).begin(); it2!= (*it).end(); it2++){
+            for (it2 = (*it).begin(); it2!= (*it).end(); ++it2){
                 if (contador == 0){
                     contador++;
                     continue;
@@ -119,8 +119,6 @@ std::list<Nodo*> Grafo::obtenerNodosAdyacentes(Nodo* nodo){
 
 bool Grafo::nodoEstaEnLista(Nodo *nodo, 
     std::list<Nodo*> lista){
-    std::list<Nodo*>::iterator it;
-
     bool estaEnLista = (std::find(lista.begin(),
         lista.end(), nodo) != lista.end());
     return estaEnLista;
@@ -136,7 +134,7 @@ void Grafo::detectarCiclos(Nodo *nodo,
     std::list<Nodo*>::iterator it;
 
     for (it = adyacentes_nodo.begin(); 
-        it!=adyacentes_nodo.end(); it++){
+        it!=adyacentes_nodo.end(); ++it){
         Nodo *nodo_act = (*it);
         if ((nodoEstaEnLista(nodo_act, *stack))){
             this->esCiclico = true;
@@ -173,10 +171,10 @@ bool Grafo::tieneInstruccionesSinUsar(){
 void Grafo::destruirGrafo(){
     std::list<std::list<Nodo*>>::iterator it;
     for (it = this->adyacentes->begin(); 
-        it!= this->adyacentes->end(); it++){
+        it!= this->adyacentes->end(); ++it){
         std::list<Nodo*>::iterator it2;
         int contador = 0;
-        for (it2 = (*it).begin(); it2!= (*it).end(); it2++){
+        for (it2 = (*it).begin(); it2!= (*it).end(); ++it2){
             if (contador == 0){
                 Nodo *nodo = (*it2);
                 delete nodo;

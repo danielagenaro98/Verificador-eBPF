@@ -47,6 +47,8 @@ class Grafo{
     // segun las etiquetas del mismo.
     // Pre: La matriz fue inicializada.
     int obtenerEtiquetasNodo(Nodo *nodo_ant);
+    Grafo(const Grafo &s); 
+    Grafo &operator=(const Grafo& s);
     
 public: 
     Grafo();

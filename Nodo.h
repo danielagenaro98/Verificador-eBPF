@@ -18,12 +18,13 @@ class Nodo{
 	bool tiene_etiqueta;
 
 public:
+	Nodo();
 	// Almacena en instrucciones el string recibido.
-	void agregarInstrucciones(std::string inst);
+	void agregarInstrucciones(const std::string &inst);
 	// Almacena en etiqueta el string recibido.
-	void agregarEtiqueta(std::string etiq);
+	void agregarEtiqueta(const std::string &etiq);
 	// Almacena la lista de etiquetas recibida.
-	void agregarEtiquetasJmp(std::list<std::string> etiquetas);
+	void agregarEtiquetasJmp(const std::list<std::string> &etiquetas);
 	// Setea tiene_etiqueta;
 	void setEtiqueta(bool etiq);
 	// Devuelde true si tiene_etiqueta es true.

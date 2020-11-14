@@ -14,6 +14,8 @@
 
 class Parseador{
 	Nodo *nodo;
+	Parseador(const Parseador &s); 
+    Parseador &operator=(const Parseador& s);
 
 	// Dado un string, obtiene la etiqueta que contenga
 	// y la almacena en etiqueta. Devuelve las instrucciones
@@ -26,13 +28,13 @@ class Parseador{
 	void parsear_instrucciones(std::string linea);
 	// Dado un string, elimina todos los espacios en blanco
 	// iniciales.
-	std::string trim(const std::string str);
+	std::string trim(const std::string &str);
 	// Dado un string y un delimitador separa el string
 	// por el delimitador y almacena el la lista de
 	// etiquetas_jmp lo obtenido.
 	// Pre: la lista de etiquetas fue inicializada.
-	void buscar_etiquetas_jmp(std::string delimitador, 
-		std::string linea);
+	void buscar_etiquetas_jmp(const std::string &delimitador, 
+		const std::string &linea);
 public:
 	Parseador();
 	// Dada una linea la parsea y devuelve un nodo.

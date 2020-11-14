@@ -32,15 +32,13 @@ std::string Parseador::buscar_etiqueta(std::string linea){
 	return instrucciones;
 }
 
-void Parseador::buscar_etiquetas_jmp(std::string delimitador, 
-	std::string linea){
+void Parseador::buscar_etiquetas_jmp(const std::string &delimitador, 
+	const std::string &linea){
 	size_t pos = 0;
 	std::string aux = linea;
-	std::string token;
 	std::list<std::string> lista;
 
 	while ((pos = aux.find(delimitador)) != std::string::npos){
-		token = aux.substr(0, pos);
 		aux.erase(0, pos + 1);
 		aux = trim(aux);
 		lista.push_back(aux);
@@ -50,14 +48,12 @@ void Parseador::buscar_etiquetas_jmp(std::string delimitador,
 
 void Parseador::parsear_instrucciones(std::string linea){
 	linea = trim(linea);
-	size_t pos = 0;
-	std::string segment;
 
 	if(linea.at(0) != 'j'){
 		this->nodo->agregarInstrucciones(linea);
 		return;
 	}
-	if((pos = linea.find(",")) != std::string::npos){ 
+	if((linea.find(",")) != std::string::npos){ 
 		buscar_etiquetas_jmp(",", linea);
 	}else{
 		buscar_etiquetas_jmp(" ", linea);
@@ -65,7 +61,7 @@ void Parseador::parsear_instrucciones(std::string linea){
 	this->nodo->agregarInstrucciones(linea);
 }
 
-std::string Parseador::trim(const std::string str){
+std::string Parseador::trim(const std::string &str){
     size_t first = str.find_first_not_of(' ');
     if (std::string::npos == first){
         return str;

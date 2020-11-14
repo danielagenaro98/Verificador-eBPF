@@ -1,14 +1,18 @@
 #include "Nodo.h"
 
-void Nodo::agregarInstrucciones(std::string inst){
+Nodo::Nodo(){
+	this->tiene_etiqueta = false;
+}
+
+void Nodo::agregarInstrucciones(const std::string &inst){
 	this->instrucciones = inst;
 }
 
-void Nodo::agregarEtiqueta(std::string etiq){
+void Nodo::agregarEtiqueta(const std::string &etiq){
 	this->etiqueta = etiq;
 }
 
-void Nodo::agregarEtiquetasJmp(std::list<std::string> etiquetas){
+void Nodo::agregarEtiquetasJmp(const std::list<std::string> &etiquetas){
 	this->etiquetas_jmp = etiquetas;
 }
 
