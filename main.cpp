@@ -20,7 +20,7 @@ int main(int argc, char *argv[]){
     manejador.recibirArchivos(argv[i]);
     count++;
   }
-  if(count < numeroHilos){
+  if (count < numeroHilos){
     numeroHilos = count;
   }
   for (int i=0; i<numeroHilos; i++){

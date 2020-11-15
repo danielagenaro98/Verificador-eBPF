@@ -2,6 +2,7 @@
 #define THREAD_H
 #include <thread>
 #include <string>
+#include <utility>
 
 class Thread {
 private:

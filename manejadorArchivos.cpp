@@ -8,7 +8,7 @@ const char* ManejadorArchivos::getArchivo(){
 	if(archivos.empty()){
 		return NULL;
 	}
-	std::lock_guard<std::mutex> lock (this->mutex);
+	std::lock_guard<std::mutex> lock(this->mutex);
 	const char* arc = this->archivos.back();
 	this->archivos.pop_back();
 	return arc;

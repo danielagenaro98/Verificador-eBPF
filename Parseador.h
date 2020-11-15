@@ -36,6 +36,7 @@ class Parseador{
 	void buscar_etiquetas_jmp(const std::string &delimitador, 
 		const std::string &linea);
 public:
+	
 	Parseador();
 	// Dada una linea la parsea y devuelve un nodo.
 	Nodo* parsear_linea(std::string linea);
