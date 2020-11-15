@@ -96,14 +96,14 @@ std::list<Nodo*> Grafo::obtenerNodosAdyacentes(Nodo* nodo){
     std::list<Nodo*> ady;
     std::list<std::list<Nodo*>>::iterator it;
 
-    for (auto it = this->adyacentes->begin(); 
+    for (it = this->adyacentes->begin(); 
         it != this->adyacentes->end(); ++it){
         Nodo* aux = (*it).front();
         if (nodo == aux){
             std::list<Nodo*>::iterator it2;
             int contador = 0;
-
-            for (auto it2 = (*it).begin(); it2!= (*it).end(); ++it2){
+            
+            for (it2 = (*it).begin(); it2!= (*it).end(); ++it2){
                 if (contador == 0){
                     contador++;
                     continue;
