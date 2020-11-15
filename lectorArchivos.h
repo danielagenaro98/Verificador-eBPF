@@ -17,7 +17,7 @@ class LectorArchivos{
 	const char* nombreArchivo;
 
 public:
-	LectorArchivos(){ this->g = Grafo(); }
+	LectorArchivos() = default;
 	// Dado un nombre de archivo, lo abre 
 	// lee su contenido y cierra el archivo.
 	// Pre: el nombre del archivo es valido.

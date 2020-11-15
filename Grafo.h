@@ -48,9 +48,9 @@ class Grafo{
     // Pre: La matriz fue inicializada.
     int obtenerEtiquetasNodo(Nodo *nodo_ant);
     Grafo(const Grafo &s); 
+    Grafo &operator=(const Grafo& s);
     
 public: 
-    Grafo &operator=(const Grafo& s);
     Grafo();
     // Dado un nodo, lo agrega a la matriz de adyacencias
     // Pre: La matriz fue inicializada.
