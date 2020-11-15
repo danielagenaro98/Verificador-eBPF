@@ -26,7 +26,7 @@ class Grafo{
     // true. 
     // Pre: El nodo se encuentra en la matriz de adyacencias.
     void detectarCiclos(Nodo *nodo, 
-        std::list<Nodo*> &visitados, std::list<Nodo*> &stack);
+        std::list<Nodo*> *visitados, std::list<Nodo*> *stack);
     // Dado un nodo, genera la lista de adyacencias para el mismo
     // y la almacena en la matriz.
     // Pre: el nodo y la matriz fueron inicializados.
@@ -47,8 +47,8 @@ class Grafo{
     // segun las etiquetas del mismo.
     // Pre: La matriz fue inicializada.
     int obtenerEtiquetasNodo(Nodo *nodo_ant);
-    Grafo(const Grafo &s); 
     Grafo &operator=(const Grafo& s);
+    Grafo(const Grafo &s); 
     
 public: 
     Grafo();

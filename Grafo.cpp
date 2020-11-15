@@ -96,13 +96,14 @@ std::list<Nodo*> Grafo::obtenerNodosAdyacentes(Nodo* nodo){
     std::list<Nodo*> ady;
     std::list<std::list<Nodo*>>::iterator it;
 
-    for (it = this->adyacentes->begin(); 
-        it!= this->adyacentes->end(); ++it){
-        if (memcmp(nodo, (*it).front(), sizeof(*nodo)) == 0){
+    for (auto it = this->adyacentes->begin(); 
+        it != this->adyacentes->end(); ++it){
+        Nodo* aux = (*it).front();
+        if (nodo == aux){
             std::list<Nodo*>::iterator it2;
             int contador = 0;
 
-            for (it2 = (*it).begin(); it2!= (*it).end(); ++it2){
+            for (auto it2 = (*it).begin(); it2!= (*it).end(); ++it2){
                 if (contador == 0){
                     contador++;
                     continue;
@@ -125,9 +126,9 @@ bool Grafo::nodoEstaEnLista(Nodo *nodo,
 }
 
 void Grafo::detectarCiclos(Nodo *nodo, 
-    std::list<Nodo*> &visitados, std::list<Nodo*> &stack){
-    visitados.push_back(nodo);
-    stack.push_back(nodo);
+    std::list<Nodo*> *visitados, std::list<Nodo*> *stack){
+    visitados->push_back(nodo);
+    stack->push_back(nodo);
 
     std::list<Nodo*>adyacentes_nodo=
     obtenerNodosAdyacentes(nodo);
@@ -136,14 +137,14 @@ void Grafo::detectarCiclos(Nodo *nodo,
     for (it = adyacentes_nodo.begin(); 
         it!=adyacentes_nodo.end(); ++it){
         Nodo *nodo_act = (*it);
-        if ((nodoEstaEnLista(nodo_act, stack))){
+        if ((nodoEstaEnLista(nodo_act, *stack))){
             this->esCiclico = true;
             return;
-        }else if (!nodoEstaEnLista(nodo_act,  visitados)){
+        }else if (!nodoEstaEnLista(nodo_act,  *visitados)){
             detectarCiclos(nodo_act, visitados, stack);
         }
     }
-    stack.pop_back();
+    stack->pop_back();
     return;
 }
 
@@ -153,7 +154,7 @@ void Grafo::DFS(){
 
     Nodo *nodo_inicial = this->adyacentes->front().front();
 
-    detectarCiclos(nodo_inicial, visitados, stack);
+    detectarCiclos(nodo_inicial, &visitados, &stack);
 
     if (visitados.size() < this->adyacentes->size()){
         this->instruccionSinUsar = true;

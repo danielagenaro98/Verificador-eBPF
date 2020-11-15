@@ -2,6 +2,8 @@
 
 Nodo::Nodo(){
 	this->tiene_etiqueta = false;
+	this->instrucciones = "";
+	this->etiqueta = "";
 }
 
 void Nodo::agregarInstrucciones(const std::string &inst){
