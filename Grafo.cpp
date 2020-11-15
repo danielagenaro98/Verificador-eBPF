@@ -20,7 +20,7 @@ void Grafo::agregarNodoConEtiqueta(Nodo *nodo){
     }   
 }
 
-Nodo* Grafo::buscarNodoConEtiqueta(std::string etiqueta){
+Nodo* Grafo::buscarNodoConEtiqueta(const std::string &etiqueta){
     std::list<std::list<Nodo*>>::iterator it;
 
     for (it = this->adyacentes->begin(); 
@@ -125,9 +125,9 @@ bool Grafo::nodoEstaEnLista(Nodo *nodo,
 }
 
 void Grafo::detectarCiclos(Nodo *nodo, 
-    std::list<Nodo*> *visitados, std::list<Nodo*> *stack){
-    visitados->push_back(nodo);
-    stack->push_back(nodo);
+    std::list<Nodo*> &visitados, std::list<Nodo*> &stack){
+    visitados.push_back(nodo);
+    stack.push_back(nodo);
 
     std::list<Nodo*>adyacentes_nodo=
     obtenerNodosAdyacentes(nodo);
@@ -136,14 +136,14 @@ void Grafo::detectarCiclos(Nodo *nodo,
     for (it = adyacentes_nodo.begin(); 
         it!=adyacentes_nodo.end(); ++it){
         Nodo *nodo_act = (*it);
-        if ((nodoEstaEnLista(nodo_act, *stack))){
+        if ((nodoEstaEnLista(nodo_act, stack))){
             this->esCiclico = true;
             return;
-        }else if (!nodoEstaEnLista(nodo_act,  *visitados)){
+        }else if (!nodoEstaEnLista(nodo_act,  visitados)){
             detectarCiclos(nodo_act, visitados, stack);
         }
     }
-    stack->pop_back();
+    stack.pop_back();
     return;
 }
 
@@ -153,7 +153,7 @@ void Grafo::DFS(){
 
     Nodo *nodo_inicial = this->adyacentes->front().front();
 
-    detectarCiclos(nodo_inicial, &visitados, &stack);
+    detectarCiclos(nodo_inicial, visitados, stack);
 
     if (visitados.size() < this->adyacentes->size()){
         this->instruccionSinUsar = true;
