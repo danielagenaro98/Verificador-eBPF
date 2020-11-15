@@ -5,10 +5,10 @@ void ManejadorArchivos::recibirArchivos(const char* archivo){
 }
 
 const char* ManejadorArchivos::getArchivo(){
+	std::lock_guard<std::mutex> lock(this->mutex);
 	if(archivos.empty()){
 		return NULL;
 	}
-	std::lock_guard<std::mutex> lock(this->mutex);
 	const char* arc = this->archivos.back();
 	this->archivos.pop_back();
 	return arc;
